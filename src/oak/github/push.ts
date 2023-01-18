@@ -6,12 +6,10 @@ import { bot } from "../../bot/setupBot.ts";
 import {
   isWebhookPingEvent,
   isWebhookPushEvent,
-  sortMap,
 } from "../../lib/utils/generic.ts";
 import getRepositoryContent from "../../octokit/getRepositoryContent.ts";
 import dayjs, { Base64 } from "../../deps/deps.ts";
 import { Changelog } from "../../lib/ts/generic.ts";
-import { SortDirection } from "../../lib/enums/generic.ts";
 
 export default () => {
   router.post("/github/push/:guildId", async (ctx) => {
