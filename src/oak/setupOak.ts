@@ -38,5 +38,5 @@ export const handleError = (
 ) => {
   ctx.response.status = status;
   ctx.response.body = { err };
-  console.log("[Oak]", `HTTP ERROR | ${status} - ${err}`);
+  log("[Oak]", `HTTP ERROR | ${status} - ${err}`);
 };

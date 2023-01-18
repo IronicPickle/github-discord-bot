@@ -83,7 +83,11 @@ export default () => {
           date: dayjs(date),
           changes,
         }))
-        .sort(sortMap("version", SortDirection.Descending));
+        .sort(
+          (a, b) =>
+            parseInt(b.version.replace(".", "")) -
+            parseInt(a.version.replace(".", ""))
+        );
 
       const mostRecentChange = changelogArray[0];
 
@@ -101,8 +105,6 @@ export default () => {
         .map((change) => `- ${change}`)
         .join("\n");
 
-      console.log(body);
-
       const description = `
 > **Changes**
 ${changesString}
@@ -118,7 +120,9 @@ ${changesString}
               url: body.repository.owner.avatar_url,
             },
             color: 2123412,
-            timestamp: mostRecentChange.date.unix(),
+            footer: {
+              text: mostRecentChange.date.format("ddd D MMMM YYYY"),
+            },
             author: {
               name: body.sender.login,
               url: body.sender.html_url,

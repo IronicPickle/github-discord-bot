@@ -8,7 +8,7 @@ const config: Config = {
   },
   oak: {
     listenOptions: {
-      port: 80,
+      port: parseInt(Deno.env.get("OAK_PORT") ?? "80"),
     },
   },
 };
