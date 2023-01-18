@@ -1,8 +1,6 @@
 import { isDev } from "../../config/config.ts";
 import { WebhookPingEvent } from "../ts/webhookPingEvent.ts";
 import { WebhookPushEvent } from "../ts/webhookPushEvent.ts";
-import { SortDirection } from "../enums/generic.ts";
-import dayjs from "../../deps/deps.ts";
 
 export const log = (...text: any[]) => isDev && console.log("[Dev]", ...text);
 
