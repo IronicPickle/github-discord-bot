@@ -112,7 +112,7 @@ export default async () => {
 
       botConfigManager.updateGuildConfig(guildId, botConfig);
 
-      const webhookUrl = `http://86.15.154.63:8080/github/push/${guildId}`;
+      const webhookUrl = `https://updater.ironicpickle.uk/github/push/${guildId}`;
 
       return `Listening for updates from **${fullName}/${branchName}**.
 Create a webhook on the repository that listens for push events using the following url.
