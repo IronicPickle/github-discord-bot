@@ -13,22 +13,22 @@ import { Changelog } from "../../lib/ts/generic.ts";
 
 export default () => {
   router.post("/github/push/:guildId", async (ctx) => {
-    const { guildId } = ctx.params;
-    if (!guildId) return handleError(ctx, 400, "No guild ID.");
-
-    const guildConfig = botConfigManager.getGuildConfig(BigInt(guildId));
-    const { updateChannelId, updateRepositories } = guildConfig ?? {};
-
-    if (!guildConfig || !updateChannelId || !updateRepositories)
-      return handleError(ctx, 404, "Guild not configured.");
-
     const body = await parseBody<Partial<WebhookPingEvent | WebhookPushEvent>>(
       ctx
     );
-    if (!body) return handleError(ctx, 400, "No body.");
 
     if (isWebhookPingEvent(body)) return (ctx.response.status = 200);
     else if (isWebhookPushEvent(body)) {
+      const { guildId } = ctx.params;
+      if (!guildId) return handleError(ctx, 400, "No guild ID.");
+
+      const guildConfig = botConfigManager.getGuildConfig(BigInt(guildId));
+      const { updateChannelId, updateRepositories } = guildConfig ?? {};
+
+      if (!guildConfig || !updateChannelId || !updateRepositories)
+        return handleError(ctx, 404, "Guild not configured.");
+
+      if (!body) return handleError(ctx, 400, "No body.");
       const { full_name = "" } = body.repository ?? {};
       const { ref = "" } = body ?? {};
 
