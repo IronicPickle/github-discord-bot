@@ -2,11 +2,12 @@ import { ApplicationCommandOptionTypes } from "../../deps/discordeno.ts";
 import { botConfigManager } from "../../index.ts";
 import { createGlobalCommand } from "./setupCommands.ts";
 
-export default () => {
-  createGlobalCommand(
+export default async () => {
+  await createGlobalCommand(
     "set-update-channel",
     {
       description: "Set the channel to be used to broadcast updates.",
+      defaultMemberPermissions: ["ADMINISTRATOR"],
       options: [
         {
           type: ApplicationCommandOptionTypes.Channel,

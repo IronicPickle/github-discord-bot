@@ -20,12 +20,12 @@ export default () => {
     description: "Testing",
   });
 
-  botEventManager.addEventListener("ready", (_bot, { user }) =>
-    log("[Bot]", `Bot logged in as '${user.username}'`)
-  );
+  botEventManager.addEventListener("ready", (_bot, { user }) => {
+    log("[Bot]", `Bot logged in as '${user.username}'`);
 
-  setupEvents();
-  setupCommands();
+    setupEvents();
+    setupCommands();
+  });
 
   startBot(bot);
 };

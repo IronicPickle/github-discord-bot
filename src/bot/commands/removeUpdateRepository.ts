@@ -7,11 +7,12 @@ import {
   parseOptions,
 } from "./setupCommands.ts";
 
-export default () => {
-  createGlobalCommand(
+export default async () => {
+  await createGlobalCommand(
     "remove-update-repository",
     {
       description: "Remove an update repository.",
+      defaultMemberPermissions: ["ADMINISTRATOR"],
       options: [
         {
           type: ApplicationCommandOptionTypes.String,

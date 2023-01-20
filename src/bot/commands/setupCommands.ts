@@ -8,27 +8,31 @@ import {
   InteractionResponseTypes,
   InteractionTypes,
 } from "../../deps/discordeno.ts";
-import { toCamelCase } from "../../lib/utils/generic.ts";
+import { log, toCamelCase } from "../../lib/utils/generic.ts";
 import { bot, botEventManager } from "../setupBot.ts";
 import addUpdateRepository from "./addUpdateRepository.ts";
+import listUpdateRepositories from "./listUpdateRepositories.ts";
 import removeUpdateRepository from "./removeUpdateRepository.ts";
 import setUpdateChannel from "./setUpdateChannel.ts";
 
-export default () => {
-  setUpdateChannel();
-  addUpdateRepository();
-  removeUpdateRepository();
+export default async () => {
+  await setUpdateChannel();
+  await addUpdateRepository();
+  await removeUpdateRepository();
+  await listUpdateRepositories();
 };
 
-export const createGlobalCommand = (
+export const createGlobalCommand = async (
   name: string,
   command: Omit<CreateSlashApplicationCommand, "name">,
   handler: (interaction: Interaction) => Promise<string | undefined>
 ) => {
-  bot.helpers.createGlobalApplicationCommand({
+  const newCommand = await bot.helpers.createGlobalApplicationCommand({
     name,
     ...command,
   });
+
+  log(`Registered command '${newCommand.name}' (${newCommand.id})`);
 
   botEventManager.addEventListener(
     "interactionCreate",

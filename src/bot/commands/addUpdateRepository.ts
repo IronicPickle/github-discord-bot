@@ -2,18 +2,18 @@ import { ApplicationCommandOptionTypes } from "../../deps/discordeno.ts";
 import { botConfigManager } from "../../index.ts";
 import { isString } from "../../lib/utils/generic.ts";
 import getRepositoryTree from "../../octokit/getRepositoryTree.ts";
-import { bot } from "../setupBot.ts";
 import {
   createGlobalCommand,
   extractValues,
   parseOptions,
 } from "./setupCommands.ts";
 
-export default () => {
-  createGlobalCommand(
+export default async () => {
+  await createGlobalCommand(
     "add-update-repository",
     {
       description: "Add a repository to broadcast updates for.",
+      defaultMemberPermissions: ["ADMINISTRATOR"],
       options: [
         {
           type: ApplicationCommandOptionTypes.String,
