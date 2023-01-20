@@ -83,8 +83,8 @@ export default () => {
         }))
         .sort(
           (a, b) =>
-            parseInt(b.version.replace(".", "")) -
-            parseInt(a.version.replace(".", ""))
+            parseInt(b.version.replace(/\./g, "")) -
+            parseInt(a.version.replace(/\./g, ""))
         );
 
       const mostRecentChange = changelogArray[0];
@@ -134,5 +134,3 @@ ${changesString}
     }
   });
 };
-
-//
