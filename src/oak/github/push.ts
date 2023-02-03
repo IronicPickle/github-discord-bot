@@ -42,12 +42,11 @@ export default () => {
         (repository) =>
           repository.name === name &&
           repository.ownerName === ownerName &&
-          repository.branchName !== branchName
+          repository.branchName === branchName
       );
       const repository = updateRepositories[repositoryIndex];
 
-      if (!repository)
-        return handleError(ctx, 404, "Repository not configured for updates.");
+      if (!repository) return (ctx.response.status = 200);
 
       const changelogUpdated = !!body.commits.find(({ added, modified }) =>
         [...added, ...modified].find(
