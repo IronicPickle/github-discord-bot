@@ -40,7 +40,9 @@ export default () => {
 
       const repositoryIndex = updateRepositories.findIndex(
         (repository) =>
-          repository.name === name && repository.ownerName === ownerName
+          repository.name === name &&
+          repository.ownerName === ownerName &&
+          repository.branchName !== branchName
       );
       const repository = updateRepositories[repositoryIndex];
 
@@ -53,8 +55,7 @@ export default () => {
         )
       );
 
-      if (!changelogUpdated || repository.branchName !== branchName)
-        return (ctx.response.status = 200);
+      if (!changelogUpdated) return (ctx.response.status = 200);
 
       const { data: content, error: contentError } = await getRepositoryContent(
         name,
